@@ -1,151 +1,205 @@
 # DeFi Asset Defense Platform
 
-![DeFi Platform Preview](https://imgix.cosmicjs.com/e96c4dc0-7ea8-11f0-8dcc-651091f6a7c0-photo-1639762681485-074b7f938ba0-1755792438212.jpg?w=1200&h=300&fit=crop&auto=format,compress)
+A comprehensive DeFi portfolio management platform built with Next.js, TypeScript, and Cosmic CMS. This application provides users with advanced analytics, portfolio tracking, and optimization tools for their decentralized finance investments.
 
-A modern, responsive DeFi landing page platform that showcases asset defense capabilities with real-time analytics, portfolio management tools, and dynamic content management through Cosmic CMS.
+## 🚀 Features
 
-## ✨ Features
+- **Portfolio Management**: Real-time tracking and optimization of DeFi positions
+- **Advanced Analytics**: Comprehensive dashboard with performance metrics and insights
+- **Secure Wallet Interface**: Multi-protocol wallet management with enhanced security
+- **Risk Assessment**: Automated risk analysis and management recommendations
+- **Yield Optimization**: AI-powered strategies for maximizing returns
+- **Multi-Chain Support**: Integration with Ethereum, Polygon, Arbitrum, and other networks
 
-- **Dynamic Landing Pages** - Customizable hero sections with dynamic content
-- **Interactive Feature Cards** - Showcase different DeFi tools and capabilities  
-- **Real-time Statistics** - Performance metrics with trend indicators
-- **UI Component System** - Reusable buttons, charts, and navigation elements
-- **Dark Theme Design** - Modern, sophisticated visual design
-- **Responsive Layout** - Optimized for all device sizes
-- **CMS Integration** - Full content management through Cosmic
-- **Performance Optimized** - Fast loading with optimized images
+## 🛠 Tech Stack
 
-## Clone this Bucket and Code Repository
-
-Want to create your own version of this project with all the content and structure? Clone this Cosmic bucket and code repository to get started instantly:
-
-[![Clone this Bucket and Code Repository](https://img.shields.io/badge/Clone%20this%20Bucket-29abe2?style=for-the-badge&logo=cosmic&logoColor=white)](https://app.cosmic-staging.com/projects/new?clone_bucket=68a74240e340d628986f6235&clone_repository=68a74800e340d628986f6251)
-
-## Prompts
-
-This application was built using the following prompts to generate the content structure and code:
-
-### Content Model Prompt
-
-> No content model prompt provided - app built from existing content structure
-
-### Code Generation Prompt
-
-> Create a landing page that I can repeatedly use that is visually looking like the screenshot attached and also using the CMS build content structure.
-
-The app has been tailored to work with your existing Cosmic content structure and includes all the features requested above.
-
-## 🛠 Technologies Used
-
-- **Framework**: Next.js 15 with App Router
+- **Frontend**: Next.js 15, React 19, TypeScript
 - **Styling**: Tailwind CSS with custom design system
 - **CMS**: Cosmic CMS for content management
-- **Language**: TypeScript for type safety
-- **Package Manager**: Bun for fast dependency management
-- **Deployment**: Vercel-ready configuration
+- **Icons**: Lucide React
+- **Package Manager**: Bun
+
+## 📋 Prerequisites
+
+- Node.js 18+ or Bun
+- A Cosmic CMS account and bucket
+- Environment variables configured
 
 ## 🚀 Getting Started
 
-### Prerequisites
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd defi-asset-defense-platform
+   ```
 
-- Node.js 18+ or Bun
-- A Cosmic account and bucket
+2. **Install dependencies**
+   ```bash
+   bun install
+   ```
 
-### Installation
+3. **Environment Setup**
+   
+   Copy the `.env.example` file to `.env.local` and fill in your Cosmic CMS credentials:
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Update the following variables:
+   ```env
+   COSMIC_BUCKET_SLUG=your-bucket-slug
+   COSMIC_READ_KEY=your-read-key
+   COSMIC_WRITE_KEY=your-write-key
+   ```
 
-1. Clone this repository
-2. Install dependencies:
+4. **Run the development server**
+   ```bash
+   bun run dev
+   ```
 
-```bash
-bun install
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+
+## 📁 Project Structure
+
+```
+├── app/                    # Next.js App Router pages
+│   ├── analytics/         # Analytics dashboard page
+│   ├── wallet/           # Wallet management page
+│   ├── portfolio/        # Portfolio tracking page
+│   ├── about/           # About page
+│   ├── signup/          # User registration page
+│   ├── globals.css      # Global styles
+│   ├── layout.tsx       # Root layout component
+│   └── page.tsx         # Homepage
+├── components/            # Reusable React components
+│   ├── CosmicBadge.tsx   # Cosmic CMS attribution badge
+│   ├── FeatureGrid.tsx   # Feature cards grid
+│   ├── HeroSection.tsx   # Homepage hero section
+│   ├── Navigation.tsx    # Main navigation component
+│   └── StatsSection.tsx  # Statistics display component
+├── lib/                  # Utility libraries
+│   └── cosmic.ts         # Cosmic CMS API integration
+├── types.ts              # TypeScript type definitions
+├── tailwind.config.js    # Tailwind CSS configuration
+├── next.config.js        # Next.js configuration
+└── tsconfig.json         # TypeScript configuration
 ```
 
-3. Set up your environment variables (see Environment Variables section)
-4. Run the development server:
+## 🎨 Design System
 
-```bash
-bun dev
+The application uses a custom design system built on Tailwind CSS with:
+
+- **Color Palette**: Dark theme with accent colors (blue, purple, green)
+- **Typography**: Inter font family with responsive scaling
+- **Components**: Glass-morphism effects, gradient backgrounds, and smooth animations
+- **Layout**: Responsive grid system optimized for desktop and mobile
+
+## 📊 Cosmic CMS Integration
+
+The platform integrates with Cosmic CMS for content management:
+
+### Object Types Used
+
+1. **Landing Pages** (`landing-pages`)
+   - Page titles and hero content
+   - CTA buttons and links
+   - Background images
+
+2. **Feature Cards** (`feature-cards`)
+   - Feature descriptions and images
+   - Action links and display order
+   - Card types and categorization
+
+3. **Statistics** (`stats`)
+   - Performance metrics and KPIs
+   - Trend indicators and colors
+   - Descriptions and value types
+
+4. **UI Components** (`ui-components`)
+   - Configurable interface elements
+   - Theme variations and styling options
+   - Dynamic component configurations
+
+## 🔧 Development
+
+### Available Scripts
+
+- `bun run dev` - Start development server
+- `bun run build` - Build for production
+- `bun run start` - Start production server
+- `bun run lint` - Run ESLint
+- `bun run type-check` - Run TypeScript type checking
+
+### Code Quality
+
+- TypeScript with strict mode enabled
+- ESLint for code linting
+- Pre-build type checking to prevent deployment errors
+- Consistent code formatting and organization
+
+## 🚀 Deployment
+
+The application is optimized for deployment on:
+
+- **Vercel** (recommended for Next.js projects)
+- **Netlify**
+- **Cloudflare Pages**
+- Any platform supporting Node.js applications
+
+### Environment Variables for Production
+
+Ensure all environment variables are properly configured in your deployment platform:
+
+```env
+COSMIC_BUCKET_SLUG=your-production-bucket-slug
+COSMIC_READ_KEY=your-production-read-key
+COSMIC_WRITE_KEY=your-production-write-key
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) to view the application
+## 🔒 Security Features
 
-## 📡 Cosmic SDK Examples
+- Multi-signature wallet integration
+- Real-time risk assessment
+- Secure API communication
+- Environment-based configuration
+- Input validation and sanitization
 
-### Fetching Landing Page Data
+## 📱 Mobile Optimization
 
-```typescript
-import { cosmic } from '@/lib/cosmic'
+- Fully responsive design
+- Touch-optimized interfaces
+- Mobile navigation patterns
+- Optimized loading performance
 
-// Get landing page with related content
-const landingPage = await cosmic.objects.findOne({
-  type: 'landing-pages',
-  slug: 'defi-asset-defense-landing-page'
-}).depth(2)
+## 🤝 Contributing
 
-// Access nested feature cards and stats
-const featureCards = landingPage.object.metadata.featured_components
-const keyStats = landingPage.object.metadata.key_stats
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Fetching Statistics
+## 📝 License
 
-```typescript
-// Get all statistics with trend data
-const stats = await cosmic.objects.find({
-  type: 'stats'
-}).props(['id', 'title', 'metadata'])
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-// Filter by trend direction
-const upwardTrends = await cosmic.objects.find({
-  type: 'stats',
-  'metadata.trend_direction': 'up'
-})
-```
+## 🆘 Support
 
-### Fetching UI Components
+For support and questions:
+- Check the documentation
+- Open an issue on GitHub
+- Contact our support team
 
-```typescript
-// Get specific UI component configuration
-const ctaButton = await cosmic.objects.findOne({
-  type: 'ui-components',
-  slug: 'primary-cta-button'
-})
+## 🎯 Roadmap
 
-const buttonConfig = ctaButton.object.metadata.configuration
-```
+- [ ] Multi-chain wallet support
+- [ ] Advanced portfolio optimization algorithms
+- [ ] Social trading features
+- [ ] Mobile application
+- [ ] API for third-party integrations
+- [ ] Advanced risk management tools
 
-## 🎨 Cosmic CMS Integration
+---
 
-This application integrates with your existing Cosmic CMS structure:
-
-- **Landing Pages**: Hero content, CTAs, and page configuration
-- **Feature Cards**: Interactive showcases of platform capabilities
-- **Statistics**: Real-time metrics with trend indicators and color coding
-- **UI Components**: Reusable design elements with theme variations
-
-All content is dynamically fetched from your Cosmic bucket and rendered with appropriate styling and animations.
-
-## 🌐 Deployment Options
-
-### Vercel (Recommended)
-
-1. Connect your repository to Vercel
-2. Add your environment variables in the Vercel dashboard
-3. Deploy automatically on every push to main
-
-### Netlify
-
-1. Connect your repository to Netlify
-2. Set build command: `bun run build`
-3. Set publish directory: `.next`
-4. Add environment variables in Netlify dashboard
-
-### Environment Variables
-
-Set these variables in your deployment platform:
-
-- `COSMIC_BUCKET_SLUG`: Your Cosmic bucket slug
-- `COSMIC_READ_KEY`: Your Cosmic read key
-- `COSMIC_WRITE_KEY`: Your Cosmic write key (if using write operations)
-
-<!-- README_END -->
+Built with ❤️ using [Cosmic CMS](https://www.cosmicjs.com) for content management.
