@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Navigation from '@/components/Navigation';
-import { Mail, Lock, User, ArrowRight, Shield, Zap, Target, Check } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, CheckCircle } from 'lucide-react';
 
 export default function SignupPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,9 +14,6 @@ export default function SignupPage() {
     acceptTerms: false,
   });
 
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -25,322 +22,220 @@ export default function SignupPage() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setCurrentStep(3); // Success step
-    setIsSubmitting(false);
-  };
-
-  const nextStep = () => {
-    if (currentStep < 2) {
-      setCurrentStep(currentStep + 1);
-    }
+    // Handle form submission
+    console.log('Form submitted:', formData);
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Navigation />
-      
-      <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left Side - Benefits */}
-            <div className="space-y-8">
+    <div className="min-h-screen bg-background text-foreground pt-20">
+      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-gradient">Join DeFi Defense</span>
+          </h1>
+          <p className="text-xl text-gray-300">
+            Start protecting and optimizing your DeFi portfolio today
+          </p>
+        </div>
+
+        {/* Signup Form */}
+        <div className="glass-effect rounded-2xl p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Name Fields */}
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                  <span className="text-gradient">Get Started</span>
-                </h1>
-                <p className="text-xl text-gray-300">
-                  Join thousands of users already protecting and optimizing their DeFi portfolios
-                </p>
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
+                  First Name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+                    placeholder="John"
+                    required
+                  />
+                </div>
               </div>
-
-              <div className="space-y-6">
-                <BenefitItem 
-                  icon={<Shield className="w-6 h-6 text-accent" />}
-                  title="Bank-Grade Security"
-                  description="Multi-signature wallets and institutional-grade security protocols"
-                />
-                <BenefitItem 
-                  icon={<Zap className="w-6 h-6 text-primary" />}
-                  title="Automated Optimization"
-                  description="AI-powered portfolio optimization and yield farming strategies"
-                />
-                <BenefitItem 
-                  icon={<Target className="w-6 h-6 text-secondary" />}
-                  title="Real-Time Analytics"
-                  description="Comprehensive dashboard with live performance metrics"
-                />
-              </div>
-
-              <div className="glass-effect rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-white mb-4">What You Get</h3>
-                <div className="space-y-3">
-                  <CheckItem text="$100K insurance coverage per account" />
-                  <CheckItem text="Access to 50+ DeFi protocols" />
-                  <CheckItem text="24/7 customer support" />
-                  <CheckItem text="Advanced portfolio analytics" />
-                  <CheckItem text="Automated risk management" />
+              <div>
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
+                  Last Name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+                    placeholder="Doe"
+                    required
+                  />
                 </div>
               </div>
             </div>
 
-            {/* Right Side - Form */}
-            <div className="glass-effect rounded-2xl p-8">
-              {currentStep === 1 && (
-                <AccountDetailsStep 
-                  formData={formData}
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleInputChange}
-                  onNext={nextStep}
+                  className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+                  placeholder="john@example.com"
+                  required
                 />
-              )}
-              
-              {currentStep === 2 && (
-                <SecurityStep 
-                  formData={formData}
+              </div>
+            </div>
+
+            {/* Password */}
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  name="password"
+                  value={formData.password}
                   onChange={handleInputChange}
-                  onSubmit={handleSubmit}
-                  isSubmitting={isSubmitting}
+                  className="w-full pl-10 pr-12 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+                  placeholder="Create a strong password"
+                  required
                 />
-              )}
-
-              {currentStep === 3 && <SuccessStep />}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  );
-}
 
-function BenefitItem({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
-  return (
-    <div className="flex items-start space-x-4">
-      <div className="flex-shrink-0 p-2 rounded-lg glass-effect">{icon}</div>
-      <div>
-        <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
-        <p className="text-gray-300">{description}</p>
-      </div>
-    </div>
-  );
-}
+            {/* Confirm Password */}
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                  className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+                  placeholder="Confirm your password"
+                  required
+                />
+              </div>
+            </div>
 
-function CheckItem({ text }: { text: string }) {
-  return (
-    <div className="flex items-center space-x-3">
-      <Check className="w-5 h-5 text-accent flex-shrink-0" />
-      <span className="text-gray-300">{text}</span>
-    </div>
-  );
-}
-
-interface FormProps {
-  formData: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    acceptTerms: boolean;
-  };
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-function AccountDetailsStep({ formData, onChange, onNext }: FormProps & { onNext: () => void }) {
-  const isValid = formData.firstName && formData.lastName && formData.email;
-
-  return (
-    <div>
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Create Your Account</h2>
-        <p className="text-gray-400">Step 1 of 2: Basic Information</p>
-      </div>
-
-      <div className="space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              First Name
-            </label>
-            <div className="relative">
-              <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+            {/* Terms and Conditions */}
+            <div className="flex items-start">
               <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={onChange}
-                className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/20 transition-colors"
-                placeholder="John"
+                type="checkbox"
+                id="acceptTerms"
+                name="acceptTerms"
+                checked={formData.acceptTerms}
+                onChange={handleInputChange}
+                className="mt-1 h-4 w-4 text-accent bg-gray-800 border-gray-600 rounded focus:ring-accent focus:ring-1"
+                required
               />
+              <label htmlFor="acceptTerms" className="ml-3 text-sm text-gray-300">
+                I agree to the{' '}
+                <a href="#" className="text-accent hover:text-accent/80 underline">
+                  Terms of Service
+                </a>{' '}
+                and{' '}
+                <a href="#" className="text-accent hover:text-accent/80 underline">
+                  Privacy Policy
+                </a>
+              </label>
             </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full bg-gradient-primary text-white py-4 rounded-xl text-lg font-semibold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-primary/25"
+            >
+              Create Account
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="my-8 flex items-center">
+            <div className="flex-1 border-t border-gray-700"></div>
+            <span className="px-4 text-gray-400 text-sm">or</span>
+            <div className="flex-1 border-t border-gray-700"></div>
           </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Last Name
-            </label>
-            <div className="relative">
-              <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={onChange}
-                className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/20 transition-colors"
-                placeholder="Doe"
-              />
-            </div>
+
+          {/* Social Login */}
+          <div className="space-y-4">
+            <button className="w-full flex items-center justify-center px-4 py-3 border border-gray-700 rounded-lg text-white hover:bg-gray-800/50 transition-colors">
+              <img src="/google-icon.svg" alt="Google" className="w-5 h-5 mr-3" onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }} />
+              <span className="mr-3">🔍</span>
+              Continue with Google
+            </button>
+            
+            <button className="w-full flex items-center justify-center px-4 py-3 border border-gray-700 rounded-lg text-white hover:bg-gray-800/50 transition-colors">
+              <span className="mr-3">🦄</span>
+              Connect with Wallet
+            </button>
           </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Email Address
-          </label>
-          <div className="relative">
-            <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={onChange}
-              className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/20 transition-colors"
-              placeholder="john@example.com"
-            />
-          </div>
-        </div>
-
-        <button
-          onClick={onNext}
-          disabled={!isValid}
-          className="w-full bg-gradient-primary text-white py-3 px-6 rounded-lg font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2"
-        >
-          <span>Continue</span>
-          <ArrowRight className="w-5 h-5" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function SecurityStep({ formData, onChange, onSubmit, isSubmitting }: FormProps & { onSubmit: (e: React.FormEvent) => void; isSubmitting: boolean }) {
-  const isValid = formData.password && formData.confirmPassword && formData.password === formData.confirmPassword && formData.acceptTerms;
-
-  return (
-    <form onSubmit={onSubmit}>
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Secure Your Account</h2>
-        <p className="text-gray-400">Step 2 of 2: Password & Security</p>
-      </div>
-
-      <div className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Password
-          </label>
-          <div className="relative">
-            <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={onChange}
-              className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/20 transition-colors"
-              placeholder="Create a strong password"
-            />
+          {/* Login Link */}
+          <div className="mt-8 text-center">
+            <p className="text-gray-400">
+              Already have an account?{' '}
+              <a href="#" className="text-accent hover:text-accent/80 font-medium">
+                Sign in
+              </a>
+            </p>
           </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Confirm Password
-          </label>
-          <div className="relative">
-            <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={onChange}
-              className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white/20 transition-colors"
-              placeholder="Confirm your password"
-            />
+        {/* Benefits */}
+        <div className="mt-12 grid grid-cols-1 gap-4">
+          <div className="flex items-center text-gray-300">
+            <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+            <span className="text-sm">Advanced portfolio analytics and insights</span>
+          </div>
+          <div className="flex items-center text-gray-300">
+            <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+            <span className="text-sm">Automated risk management and defense strategies</span>
+          </div>
+          <div className="flex items-center text-gray-300">
+            <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+            <span className="text-sm">Real-time market monitoring and alerts</span>
+          </div>
+          <div className="flex items-center text-gray-300">
+            <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+            <span className="text-sm">Seamless DeFi protocol integration</span>
           </div>
         </div>
-
-        <div className="flex items-start space-x-3">
-          <input
-            type="checkbox"
-            name="acceptTerms"
-            id="acceptTerms"
-            checked={formData.acceptTerms}
-            onChange={onChange}
-            className="mt-1 w-5 h-5 text-primary bg-white/10 border-white/20 rounded focus:ring-primary focus:ring-2"
-          />
-          <label htmlFor="acceptTerms" className="text-sm text-gray-300 leading-relaxed">
-            I agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a> and 
-            <a href="#" className="text-primary hover:underline"> Privacy Policy</a>. I understand that my funds 
-            will be secured using industry-standard encryption and security protocols.
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          disabled={!isValid || isSubmitting}
-          className="w-full bg-gradient-primary text-white py-3 px-6 rounded-lg font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2"
-        >
-          {isSubmitting ? (
-            <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Creating Account...</span>
-            </>
-          ) : (
-            <>
-              <span>Create Account</span>
-              <ArrowRight className="w-5 h-5" />
-            </>
-          )}
-        </button>
-      </div>
-    </form>
-  );
-}
-
-function SuccessStep() {
-  return (
-    <div className="text-center">
-      <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-8">
-        <Check className="w-10 h-10 text-white" />
-      </div>
-      
-      <h2 className="text-3xl font-bold text-white mb-4">Welcome to DeFi Asset Defense!</h2>
-      <p className="text-gray-300 mb-8">
-        Your account has been successfully created. You can now start securing and optimizing your DeFi portfolio.
-      </p>
-
-      <div className="space-y-4">
-        <button className="w-full bg-gradient-primary text-white py-3 px-6 rounded-lg font-semibold hover:scale-105 transition-transform">
-          Access Your Dashboard
-        </button>
-        
-        <button className="w-full glass-effect text-white py-3 px-6 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-          Complete Profile Setup
-        </button>
-      </div>
-
-      <div className="mt-8 p-4 bg-white/5 rounded-lg text-left">
-        <h4 className="font-semibold text-white mb-2">Next Steps:</h4>
-        <ul className="text-sm text-gray-300 space-y-1">
-          <li>• Verify your email address</li>
-          <li>• Connect your wallet</li>
-          <li>• Set up security preferences</li>
-          <li>• Explore available protocols</li>
-        </ul>
       </div>
     </div>
   );

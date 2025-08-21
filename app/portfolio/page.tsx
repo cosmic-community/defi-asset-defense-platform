@@ -1,410 +1,241 @@
-import { getStats } from '@/lib/cosmic';
-import Navigation from '@/components/Navigation';
-import type { Stat } from '@/types';
-import { PieChart, TrendingUp, TrendingDown, Target, Shield, Zap, DollarSign, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, PieChart, BarChart3, Target } from 'lucide-react';
 
 export const metadata = {
-  title: 'Portfolio Management - DeFi Asset Defense',
-  description: 'Comprehensive portfolio tracking and optimization tools for your DeFi investments.',
+  title: 'Portfolio - DeFi Asset Defense Platform',
+  description: 'Comprehensive portfolio management and performance tracking',
 };
 
-export default async function PortfolioPage() {
-  try {
-    const stats = await getStats();
-    const statsData = stats as Stat[];
+export default function PortfolioPage() {
+  return (
+    <div className="min-h-screen bg-background text-foreground pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Page Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <span className="text-gradient">Portfolio Overview</span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Comprehensive portfolio management with advanced analytics and performance tracking.
+          </p>
+        </div>
 
-    return (
-      <main className="min-h-screen bg-background text-foreground">
-        <Navigation />
-        
-        <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            {/* Page Header */}
-            <div className="text-center mb-12">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                <span className="text-gradient">Portfolio Management</span>
-              </h1>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Comprehensive portfolio tracking and optimization tools to maximize your DeFi investment returns
-              </p>
+        {/* Portfolio Summary */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+          <div className="glass-effect rounded-xl p-6 text-center">
+            <h3 className="text-lg font-semibold text-gray-300 mb-2">Total Value</h3>
+            <p className="text-3xl font-bold text-white mb-2">$12,847</p>
+            <div className="flex items-center justify-center text-green-400">
+              <TrendingUp className="w-4 h-4 mr-1" />
+              <span className="text-sm">+5.2%</span>
             </div>
+          </div>
 
-            {/* Portfolio Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
-              <PortfolioValue />
-              <PerformanceMetrics stats={statsData} />
+          <div className="glass-effect rounded-xl p-6 text-center">
+            <h3 className="text-lg font-semibold text-gray-300 mb-2">24h Change</h3>
+            <p className="text-3xl font-bold text-green-400 mb-2">+$647</p>
+            <div className="flex items-center justify-center text-green-400">
+              <TrendingUp className="w-4 h-4 mr-1" />
+              <span className="text-sm">+5.31%</span>
             </div>
+          </div>
 
-            {/* Charts and Allocation */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-              <AllocationChart />
-              <PerformanceChart />
+          <div className="glass-effect rounded-xl p-6 text-center">
+            <h3 className="text-lg font-semibold text-gray-300 mb-2">Assets</h3>
+            <p className="text-3xl font-bold text-white mb-2">12</p>
+            <div className="flex items-center justify-center text-blue-400">
+              <PieChart className="w-4 h-4 mr-1" />
+              <span className="text-sm">Diversified</span>
             </div>
+          </div>
 
-            {/* Portfolio Positions and Recommendations */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <PortfolioPositions />
-              <OptimizationRecommendations />
+          <div className="glass-effect rounded-xl p-6 text-center">
+            <h3 className="text-lg font-semibold text-gray-300 mb-2">Risk Score</h3>
+            <p className="text-3xl font-bold text-yellow-400 mb-2">6.8</p>
+            <div className="flex items-center justify-center text-yellow-400">
+              <Target className="w-4 h-4 mr-1" />
+              <span className="text-sm">Medium</span>
             </div>
           </div>
         </div>
-      </main>
-    );
-  } catch (error) {
-    console.error('Error loading portfolio page:', error);
-    return (
-      <main className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Portfolio Unavailable</h1>
-          <p className="text-muted-foreground">Failed to load portfolio data. Please try again later.</p>
-        </div>
-      </main>
-    );
-  }
-}
 
-function PortfolioValue() {
-  return (
-    <div className="lg:col-span-2 glass-effect rounded-2xl p-8">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-3">
-          <PieChart className="w-8 h-8 text-primary" />
-          <h2 className="text-2xl font-bold text-white">Portfolio Value</h2>
-        </div>
-        <select className="bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20">
-          <option>24H</option>
-          <option>7D</option>
-          <option>30D</option>
-          <option>1Y</option>
-        </select>
-      </div>
-
-      <div className="text-5xl font-bold text-gradient mb-4">
-        $127,849.32
-      </div>
-
-      <div className="flex items-center space-x-6 mb-8">
-        <div className="flex items-center space-x-2">
-          <TrendingUp className="w-5 h-5 text-accent" />
-          <span className="text-lg font-medium text-accent">+$5,847.23</span>
-          <span className="text-sm text-gray-400">(+4.8%)</span>
-        </div>
-        <span className="text-gray-400">vs last month</span>
-      </div>
-
-      <div className="grid grid-cols-3 gap-6 text-center">
-        <div>
-          <div className="text-xl font-bold text-white">$98.2K</div>
-          <div className="text-sm text-gray-400">Invested</div>
-        </div>
-        <div>
-          <div className="text-xl font-bold text-accent">+29.7K</div>
-          <div className="text-sm text-gray-400">Profit</div>
-        </div>
-        <div>
-          <div className="text-xl font-bold text-primary">30.2%</div>
-          <div className="text-sm text-gray-400">ROI</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PerformanceMetrics({ stats }: { stats: Stat[] }) {
-  return (
-    <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-      {stats.slice(0, 4).map((stat, index) => (
-        <div key={stat.id} className="glass-effect rounded-xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="text-sm text-gray-400">{stat.metadata.stat_label}</div>
-            {stat.metadata.trend_direction?.key === 'up' ? (
-              <TrendingUp className="w-4 h-4 text-accent" />
-            ) : (
-              <TrendingDown className="w-4 h-4 text-red-400" />
-            )}
-          </div>
-          <div 
-            className="text-2xl font-bold mb-2"
-            style={{ color: stat.metadata.display_color }}
-          >
-            {stat.metadata.stat_value}
-          </div>
-          <div className="text-xs text-gray-400">{stat.metadata.stat_description}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function AllocationChart() {
-  const allocations = [
-    { name: 'DeFi Protocols', percentage: 45, value: '$57.5K', color: '#3b82f6' },
-    { name: 'Stablecoins', percentage: 25, value: '$32.0K', color: '#00ff88' },
-    { name: 'Layer 1 Tokens', percentage: 20, value: '$25.6K', color: '#ff6b35' },
-    { name: 'LP Tokens', percentage: 10, value: '$12.8K', color: '#8b5cf6' },
-  ];
-
-  return (
-    <div className="glass-effect rounded-2xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-white">Asset Allocation</h3>
-        <Target className="w-6 h-6 text-accent" />
-      </div>
-
-      <div className="relative mb-8">
-        <div className="w-64 h-64 mx-auto relative">
-          <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
-            {allocations.map((allocation, index) => {
-              const previousPercentages = allocations.slice(0, index).reduce((sum, a) => sum + a.percentage, 0);
-              const circumference = 2 * Math.PI * 40;
-              const strokeDasharray = `${(allocation.percentage / 100) * circumference} ${circumference}`;
-              const strokeDashoffset = -((previousPercentages / 100) * circumference);
-
-              return (
-                <circle
-                  key={allocation.name}
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  stroke={allocation.color}
-                  strokeWidth="8"
-                  strokeDasharray={strokeDasharray}
-                  strokeDashoffset={strokeDashoffset}
-                  className="opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
-                />
-              );
-            })}
-          </svg>
-          
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-white">100%</span>
-            <span className="text-sm text-gray-400">Allocated</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        {allocations.map((allocation) => (
-          <div key={allocation.name} className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: allocation.color }} />
-              <span className="text-sm text-gray-300">{allocation.name}</span>
-            </div>
-            <div className="text-right">
-              <div className="text-sm font-medium text-white">{allocation.percentage}%</div>
-              <div className="text-xs text-gray-400">{allocation.value}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PerformanceChart() {
-  const performanceData = [
-    { month: 'Jan', value: 85 },
-    { month: 'Feb', value: 92 },
-    { month: 'Mar', value: 78 },
-    { month: 'Apr', value: 94 },
-    { month: 'May', value: 89 },
-    { month: 'Jun', value: 96 },
-    { month: 'Jul', value: 103 },
-    { month: 'Aug', value: 108 },
-    { month: 'Sep', value: 115 },
-    { month: 'Oct', value: 122 },
-    { month: 'Nov', value: 128 },
-    { month: 'Dec', value: 127 },
-  ];
-
-  return (
-    <div className="glass-effect rounded-2xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-white">Performance History</h3>
-        <BarChart3 className="w-6 h-6 text-primary" />
-      </div>
-
-      <div className="h-64 relative">
-        {/* Chart area */}
-        <div className="absolute inset-0 flex items-end justify-between">
-          {performanceData.map((data, index) => (
-            <div
-              key={data.month}
-              className="flex-1 mx-1 bg-gradient-to-t from-primary/50 to-primary rounded-t hover:from-primary/70 hover:to-primary/90 transition-all cursor-pointer"
-              style={{ height: `${(data.value / 130) * 100}%` }}
-              title={`${data.month}: $${data.value}K`}
-            />
-          ))}
-        </div>
-
-        {/* Y-axis labels */}
-        <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs text-gray-400">
-          <span>$130K</span>
-          <span>$100K</span>
-          <span>$70K</span>
-        </div>
-      </div>
-
-      {/* X-axis labels */}
-      <div className="flex justify-between mt-4 text-xs text-gray-400">
-        {performanceData.map((data) => (
-          <span key={data.month}>{data.month}</span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PortfolioPositions() {
-  const positions = [
-    { 
-      protocol: 'Compound', 
-      asset: 'USDC', 
-      amount: '25,000', 
-      value: '$25,000', 
-      apy: '4.2%', 
-      status: 'earning',
-      change: '+$42.50'
-    },
-    { 
-      protocol: 'Uniswap V3', 
-      asset: 'ETH/USDC', 
-      amount: '15.5 LP', 
-      value: '$31,200', 
-      apy: '12.8%', 
-      status: 'earning',
-      change: '+$156.80'
-    },
-    { 
-      protocol: 'Aave', 
-      asset: 'WBTC', 
-      amount: '0.8', 
-      value: '$28,400', 
-      apy: '3.1%', 
-      status: 'earning',
-      change: '+$29.11'
-    },
-    { 
-      protocol: 'Curve', 
-      asset: '3pool', 
-      amount: '18,500', 
-      value: '$18,650', 
-      apy: '5.7%', 
-      status: 'earning',
-      change: '+$35.12'
-    },
-  ];
-
-  return (
-    <div className="glass-effect rounded-2xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-white">Active Positions</h3>
-        <div className="flex items-center space-x-2 text-sm text-accent">
-          <Zap className="w-4 h-4" />
-          <span>All positions earning</span>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        {positions.map((position, index) => (
-          <div key={index} className="p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <div className="text-sm font-medium text-white">{position.protocol}</div>
-                <div className="text-xs text-gray-400">{position.asset}</div>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          {/* Performance Chart */}
+          <div className="lg:col-span-2">
+            <div className="glass-effect rounded-2xl p-8">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-bold text-white">Performance History</h2>
+                <div className="flex space-x-2">
+                  <button className="px-4 py-2 bg-primary/20 text-primary rounded-lg text-sm font-medium">7D</button>
+                  <button className="px-4 py-2 text-gray-400 rounded-lg text-sm font-medium hover:bg-white/5">30D</button>
+                  <button className="px-4 py-2 text-gray-400 rounded-lg text-sm font-medium hover:bg-white/5">1Y</button>
+                </div>
               </div>
-              <div className="text-right">
-                <div className="text-sm font-medium text-white">{position.value}</div>
-                <div className="text-xs text-accent">{position.apy} APY</div>
-              </div>
-            </div>
-            
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-400">{position.amount}</span>
-              <span className="text-accent">{position.change}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <button className="w-full mt-6 py-3 px-6 rounded-lg glass-effect hover:bg-white/10 transition-colors text-sm font-medium text-white">
-        View All Positions
-      </button>
-    </div>
-  );
-}
-
-function OptimizationRecommendations() {
-  const recommendations = [
-    {
-      type: 'yield',
-      title: 'Optimize Yield',
-      description: 'Move 5K USDC from Compound to Convex for +2.1% APY',
-      impact: '+$315/year',
-      risk: 'Low',
-      icon: <TrendingUp className="w-5 h-5 text-accent" />
-    },
-    {
-      type: 'risk',
-      title: 'Reduce Risk',
-      description: 'Diversify concentrated WBTC position across 3 protocols',
-      impact: '-15% risk',
-      risk: 'Medium',
-      icon: <Shield className="w-5 h-5 text-yellow-500" />
-    },
-    {
-      type: 'opportunity',
-      title: 'New Opportunity',
-      description: 'Frax Finance offering 8.5% APY on stablecoins',
-      impact: '+$1,200/year',
-      risk: 'Medium',
-      icon: <Target className="w-5 h-5 text-primary" />
-    },
-    {
-      type: 'rebalance',
-      title: 'Rebalance Portfolio',
-      description: 'Your LP position is overweight by 5%',
-      impact: 'Better diversification',
-      risk: 'Low',
-      icon: <DollarSign className="w-5 h-5 text-purple-500" />
-    }
-  ];
-
-  return (
-    <div className="glass-effect rounded-2xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-white">Optimization</h3>
-        <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-      </div>
-
-      <div className="space-y-4">
-        {recommendations.map((rec, index) => (
-          <div key={index} className="p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
-            <div className="flex items-start space-x-3">
-              <div className="mt-1">{rec.icon}</div>
-              <div className="flex-1">
-                <div className="text-sm font-medium text-white mb-1">{rec.title}</div>
-                <div className="text-xs text-gray-400 mb-2">{rec.description}</div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-accent">{rec.impact}</span>
-                  <span className={`text-xs px-2 py-1 rounded ${
-                    rec.risk === 'Low' ? 'bg-accent/20 text-accent' :
-                    rec.risk === 'Medium' ? 'bg-yellow-500/20 text-yellow-500' :
-                    'bg-red-500/20 text-red-500'
-                  }`}>
-                    {rec.risk} Risk
-                  </span>
+              
+              {/* Mock Chart */}
+              <div className="h-80 bg-gray-800/50 rounded-xl flex items-center justify-center border border-gray-700">
+                <div className="text-center">
+                  <BarChart3 className="w-16 h-16 text-accent mx-auto mb-4" />
+                  <p className="text-gray-400 text-lg mb-2">Portfolio Performance Chart</p>
+                  <p className="text-gray-500 text-sm">Interactive chart showing historical performance</p>
                 </div>
               </div>
             </div>
           </div>
-        ))}
-      </div>
 
-      <button className="w-full mt-6 bg-gradient-primary text-white py-3 px-6 rounded-lg font-semibold hover:scale-105 transition-transform">
-        Optimize Portfolio
-      </button>
+          {/* Asset Allocation */}
+          <div className="space-y-6">
+            <div className="glass-effect rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-6">Asset Allocation</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-orange-500 rounded mr-3"></div>
+                    <span className="text-gray-300">Bitcoin</span>
+                  </div>
+                  <span className="text-white font-bold">64.1%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-blue-500 rounded mr-3"></div>
+                    <span className="text-gray-300">Ethereum</span>
+                  </div>
+                  <span className="text-white font-bold">26.9%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-purple-500 rounded mr-3"></div>
+                    <span className="text-gray-300">DeFi</span>
+                  </div>
+                  <span className="text-white font-bold">9.0%</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-effect rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-6">Top Performers</h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-white font-medium">COMP</p>
+                    <p className="text-gray-400 text-sm">Compound</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-green-400 font-bold">+24.7%</p>
+                    <p className="text-gray-400 text-sm">7d</p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-white font-medium">AAVE</p>
+                    <p className="text-gray-400 text-sm">Aave</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-green-400 font-bold">+18.3%</p>
+                    <p className="text-gray-400 text-sm">7d</p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-white font-medium">UNI</p>
+                    <p className="text-gray-400 text-sm">Uniswap</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-green-400 font-bold">+12.1%</p>
+                    <p className="text-gray-400 text-sm">7d</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Holdings Table */}
+        <div className="glass-effect rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-white mb-8">Holdings</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="text-left text-gray-300 font-medium py-4">Asset</th>
+                  <th className="text-left text-gray-300 font-medium py-4">Balance</th>
+                  <th className="text-left text-gray-300 font-medium py-4">Value</th>
+                  <th className="text-left text-gray-300 font-medium py-4">24h Change</th>
+                  <th className="text-left text-gray-300 font-medium py-4">Allocation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-gray-800">
+                  <td className="py-6">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">₿</span>
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">Bitcoin</p>
+                        <p className="text-gray-400 text-sm">BTC</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-6 text-white">0.2847 BTC</td>
+                  <td className="py-6 text-white font-bold">$8,234.50</td>
+                  <td className="py-6">
+                    <div className="flex items-center text-green-400">
+                      <TrendingUp className="w-4 h-4 mr-1" />
+                      +3.2%
+                    </div>
+                  </td>
+                  <td className="py-6 text-gray-300">64.1%</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-6">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">Ξ</span>
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">Ethereum</p>
+                        <p className="text-gray-400 text-sm">ETH</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-6 text-white">2.4571 ETH</td>
+                  <td className="py-6 text-white font-bold">$3,456.20</td>
+                  <td className="py-6">
+                    <div className="flex items-center text-green-400">
+                      <TrendingUp className="w-4 h-4 mr-1" />
+                      +7.1%
+                    </div>
+                  </td>
+                  <td className="py-6 text-gray-300">26.9%</td>
+                </tr>
+                <tr>
+                  <td className="py-6">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">◆</span>
+                      </div>
+                      <div>
+                        <p className="text-white font-medium">DeFi Portfolio</p>
+                        <p className="text-gray-400 text-sm">Multiple</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-6 text-white">Mixed</td>
+                  <td className="py-6 text-white font-bold">$1,156.53</td>
+                  <td className="py-6">
+                    <div className="flex items-center text-red-400">
+                      <TrendingDown className="w-4 h-4 mr-1" />
+                      -1.2%
+                    </div>
+                  </td>
+                  <td className="py-6 text-gray-300">9.0%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
