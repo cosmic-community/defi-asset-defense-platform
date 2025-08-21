@@ -30,6 +30,6 @@
   }
   
   .feature-card {
-    @apply glass-effect rounded-2xl p-8 relative overflow-hidden group;
+    @apply glass-effect rounded-2xl p-8 relative overflow-hidden;
   }
 }
