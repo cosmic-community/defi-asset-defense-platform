@@ -99,8 +99,8 @@ interface CosmicResponse<T> {
   skip?: number;
 }
 
-// Utility types
-type OptionalMetadata<T> = Partial<T['metadata']>;
+// Utility types with proper constraint
+type OptionalMetadata<T extends CosmicObject> = Partial<T['metadata']>;
 
 export type {
   CosmicObject,
