@@ -2,7 +2,6 @@ import { getLandingPage, getFeatureCards, getStats } from '@/lib/cosmic';
 import HeroSection from '@/components/HeroSection';
 import FeatureGrid from '@/components/FeatureGrid';
 import StatsSection from '@/components/StatsSection';
-import Navigation from '@/components/Navigation';
 import type { LandingPage, FeatureCard, Stat } from '@/types';
 
 export default async function HomePage() {
@@ -33,8 +32,6 @@ export default async function HomePage() {
 
     return (
       <main className="min-h-screen bg-background text-foreground overflow-hidden">
-        <Navigation />
-        
         <HeroSection 
           landingPage={landingPageData} 
         />
