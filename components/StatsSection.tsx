@@ -31,7 +31,7 @@ export default function StatsSection({ stats }: StatsSectionProps) {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-gradient">Performance Metrics</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-silver-300 max-w-3xl mx-auto">
             Real-time statistics showcasing our platform's performance and reliability
           </p>
         </div>
@@ -45,8 +45,8 @@ export default function StatsSection({ stats }: StatsSectionProps) {
       </div>
 
       {/* Background Decorations */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse-slow animation-delay-2000" />
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-silver-400/10 rounded-full blur-3xl animate-pulse-slow animation-delay-2000" />
     </section>
   );
 }
@@ -62,15 +62,14 @@ function StatCard({ stat, index }: StatCardProps) {
   const statValue = metadata.stat_value || '0';
   const statDescription = metadata.stat_description || '';
   const trendDirection = metadata.trend_direction?.key || 'neutral';
-  const displayColor = metadata.display_color || '#3b82f6';
   
-  // Determine trend icon and color
+  // Determine trend icon and color - using minimal silver/white colors
   const getTrendIcon = () => {
     switch (trendDirection) {
       case 'up':
-        return <TrendingUpIcon className="w-5 h-5 text-accent" />;
+        return <TrendingUpIcon className="w-5 h-5 text-silver-300" />;
       case 'down':
-        return <TrendingDownIcon className="w-5 h-5 text-red-400" />;
+        return <TrendingDownIcon className="w-5 h-5 text-silver-500" />;
       default:
         return null;
     }
@@ -79,27 +78,24 @@ function StatCard({ stat, index }: StatCardProps) {
   const getTrendColor = () => {
     switch (trendDirection) {
       case 'up':
-        return 'text-accent';
+        return 'text-silver-200';
       case 'down':
-        return 'text-red-400';
+        return 'text-silver-400';
       default:
-        return 'text-gray-400';
+        return 'text-silver-300';
     }
   };
 
   return (
     <div className={`stat-card card-hover animate-float`} style={{ animationDelay: `${index * 0.5}s` }}>
-      {/* Color Accent */}
-      <div 
-        className="absolute top-0 left-0 w-full h-1 rounded-t-xl"
-        style={{ backgroundColor: displayColor }}
-      />
+      {/* Silver Accent */}
+      <div className="absolute top-0 left-0 w-full h-1 rounded-t-xl bg-silver-400" />
 
       {/* Content */}
       <div className="relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-300">
+          <h3 className="text-lg font-semibold text-silver-300">
             {statLabel}
           </h3>
           {getTrendIcon()}
@@ -107,17 +103,14 @@ function StatCard({ stat, index }: StatCardProps) {
 
         {/* Main Value */}
         <div className="mb-4">
-          <span 
-            className={`text-4xl md:text-5xl font-bold ${getTrendColor()}`}
-            style={{ color: displayColor }}
-          >
+          <span className={`text-4xl md:text-5xl font-bold text-white`}>
             {statValue}
           </span>
         </div>
 
         {/* Description */}
         {statDescription && (
-          <p className="text-gray-400 text-sm leading-relaxed">
+          <p className="text-silver-400 text-sm leading-relaxed">
             {statDescription}
           </p>
         )}
@@ -126,8 +119,7 @@ function StatCard({ stat, index }: StatCardProps) {
         {trendDirection !== 'neutral' && (
           <div className={`mt-4 flex items-center space-x-2 text-sm ${getTrendColor()}`}>
             <div 
-              className="w-2 h-2 rounded-full animate-pulse"
-              style={{ backgroundColor: trendDirection === 'up' ? '#00ff88' : '#ef4444' }}
+              className="w-2 h-2 rounded-full animate-pulse bg-silver-400"
             />
             <span className="font-medium">
               {trendDirection === 'up' ? 'Trending Up' : 'Trending Down'}
@@ -137,10 +129,7 @@ function StatCard({ stat, index }: StatCardProps) {
       </div>
 
       {/* Background Glow Effect */}
-      <div 
-        className="absolute inset-0 rounded-xl opacity-5 blur-xl"
-        style={{ backgroundColor: displayColor }}
-      />
+      <div className="absolute inset-0 rounded-xl opacity-5 blur-xl bg-silver-400" />
     </div>
   );
 }
