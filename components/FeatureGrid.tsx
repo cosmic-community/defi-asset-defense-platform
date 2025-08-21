@@ -56,7 +56,7 @@ function FeatureCardItem({ card, index }: FeatureCardItemProps) {
   const cardTypeValue = metadata.card_type?.value || 'Feature';
 
   return (
-    <div className={`feature-card card-hover ${index % 2 === 0 ? 'lg:translate-y-8' : 'lg:-translate-y-8'}`}>
+    <div className={`feature-card card-hover group ${index % 2 === 0 ? 'lg:translate-y-8' : 'lg:-translate-y-8'}`}>
       {/* Background Image */}
       {backgroundImage && (
         <div className="absolute inset-0 rounded-2xl overflow-hidden">
