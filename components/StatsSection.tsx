@@ -1,8 +1,25 @@
 import type { Stat } from '@/types';
-import { TrendingUp, TrendingDown } from 'lucide-react';
 
 interface StatsSectionProps {
   stats: Stat[];
+}
+
+// Custom TrendingUp Icon Component
+function TrendingUpIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+    </svg>
+  );
+}
+
+// Custom TrendingDown Icon Component
+function TrendingDownIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+    </svg>
+  );
 }
 
 export default function StatsSection({ stats }: StatsSectionProps) {
@@ -51,9 +68,9 @@ function StatCard({ stat, index }: StatCardProps) {
   const getTrendIcon = () => {
     switch (trendDirection) {
       case 'up':
-        return <TrendingUp className="w-5 h-5 text-accent" />;
+        return <TrendingUpIcon className="w-5 h-5 text-accent" />;
       case 'down':
-        return <TrendingDown className="w-5 h-5 text-red-400" />;
+        return <TrendingDownIcon className="w-5 h-5 text-red-400" />;
       default:
         return null;
     }
